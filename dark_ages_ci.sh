@@ -46,13 +46,13 @@ export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_BUILD_USER="Blacksuan19"
 export KBUILD_BUILD_HOST="Dark-Castle"
-export CROSS_COMPILE="$PWD/toolchains/Toolchains/bin/aarch64-linux-android-"
+export CROSS_COMPILE="$PWD/toolchains/Toolchains/bin/aarch64-elf-gcc-"
 
 # Install build package
 sudo apt install bc
 
 # Clone toolchain
-git clone https://github.com/GrowtopiaJaw/aarch64-linux-android-4.9.git -b google toolchains/Toolchains
+git clone https://github.com/kdrag0n/aarch64-elf-gcc -b 9.x toolchains/Toolchains
 
 # Clone AnyKernel2
 git clone https://github.com/Blacksuan19/AnyKernel2 $PWD/Zipper
