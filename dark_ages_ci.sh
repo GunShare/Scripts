@@ -32,7 +32,7 @@ function finerr() {
 # Send sticker
 function tg_sendstick() {
 	curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendSticker" \
-		-d sticker="CAADAQADRQADS3HZGKLNCg7b540CAg" \
+		-d sticker="CAADBQADHAADvO4XHNWg-huYr7UnAg" \
 		-d chat_id="-1001348786090" >> /dev/null
 }
 
