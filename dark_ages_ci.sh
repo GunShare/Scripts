@@ -46,7 +46,7 @@ export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_BUILD_USER="Blacksuan19"
 export KBUILD_BUILD_HOST="Dark-Castle"
-export CROSS_COMPILE="$PWD/toolchains/Toolchains/bin/aarch64-elf-gcc-"
+export CROSS_COMPILE="$PWD/toolchains/Toolchains/bin/aarch64-elf-"
 
 # Install build package
 sudo apt install bc
