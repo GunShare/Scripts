@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Copyright (C) 2018 Abubakar Yagoub (Blacksuan19)
 
+
 BOT_API_KEY=517042878:AAEOC6q3ZYcwQr8p8Z-dsd7tE-SyAx0OdbY
 KERN_IMG=$PWD/out/arch/arm64/boot/Image.gz-dtb
 ZIP_DIR=$PWD/Zipper
@@ -9,6 +10,7 @@ CONFIG=vince_defconfig
 THREAD="-j8"
 
 # Push kernel installer to channel
+
 function push() {
 	JIP=$ZIP_DIR/$ZIP
 	curl -F document=@"$JIP"  "https://api.telegram.org/bot$BOT_API_KEY/sendDocument" \
@@ -32,11 +34,12 @@ function finerr() {
 # Send sticker
 function tg_sendstick() {
 	curl -s -X POST "https://api.telegram.org/bot$BOT_API_KEY/sendSticker" \
-		-d sticker="CAADBQADHAADvO4XHNWg-huYr7UnAg" \
+		-d sticker="CAADAQADRQADS3HZGKLNCg7b540CAg" \
 		-d chat_id="-1001348786090" >> /dev/null
 }
 
 # Fin prober
+
 function fin() {
 	tg_sendinfo "$(echo "Build Finished in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds.")"
 }
@@ -46,13 +49,16 @@ export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_BUILD_USER="Blacksuan19"
 export KBUILD_BUILD_HOST="Dark-Castle"
-export CROSS_COMPILE="$PWD/toolchains/Toolchains/bin/aarch64-elf-"
+export CROSS_COMPILE="$PWD/toolchains/aarch64/bin/aarch64-linux-android-"
+export CROSS_COMPILE_ARM32="$PWD/toolchains/aarch32/bin/arm-eabi-"
 
 # Install build package
+
 sudo apt install bc
 
 # Clone toolchain
-git clone https://github.com/kdrag0n/aarch64-elf-gcc -b 9.x toolchains/Toolchains
+git clone https://github.com/GrowtopiaJaw/aarch64-linux-android-4.9.git -b google toolchains/aarch64
+git clone https://github.com/arter97/arm-eabi-5.1.git toolchains/aarch32
 
 # Clone AnyKernel2
 git clone https://github.com/Blacksuan19/AnyKernel2 $PWD/Zipper
@@ -84,7 +90,7 @@ cd $ZIP_DIR
 make clean &>/dev/null
 NAME=Dark-Ages	
 DATE=$(date "+%d%m%Y-%I%M")	
-CODE=Sexto	
+CODE=El-Octavo
 ZIP=${NAME}-${CODE}-${DATE}.zip
 cp $KERN_IMG $ZIP_DIR/zImage
 make normal &>/dev/null
