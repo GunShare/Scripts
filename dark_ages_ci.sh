@@ -106,10 +106,10 @@ DATE=$(date "+%d%m%Y-%I%M")
 CODE=El-Octavo
 VERSION=4.9
 if [ $BRANCH == "darky" ]; then
-ZIP=$(NAME)-$(CODE)-$(VERSION)-STABLE-$(DATE).zip
+ZIP=${NAME}-${CODE}-${VERSION}-STABLE-${DATE}.zip
 make stable &>/dev/null
 else
-ZIP=$(NAME)-$(CODE)-$(VERSION)-BETA-$(DATE).zip
+ZIP=${NAME}-${CODE}-${VERSION}-BETA-${DATE}.zip
 make beta &>/dev/null
 fi
 echo "Flashable zip generated under $ZIP_DIR."
