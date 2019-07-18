@@ -13,7 +13,11 @@ THREAD="-j8"
 
 function push() {
 	JIP=$ZIP_DIR/$ZIP
+	MD5=$ZIP_DIR/$ZIP.sha1
 	curl -F document=@"$JIP"  "https://api.telegram.org/bot$BOT_API_KEY/sendDocument" \
+			-F chat_id="-1001348786090"
+
+	curl -F document=@"$MD5"  "https://api.telegram.org/bot$BOT_API_KEY/sendDocument" \
 			-F chat_id="-1001348786090"
 }
 
@@ -69,11 +73,19 @@ BUILD_START=$(date +"%s")
 
 tg_sendstick
 
-tg_sendinfo "*Dark Ages* Kernel New Build!  
+if [ $BRANCH == "darky" ]; then
+tg_sendinfo "*Dark Ages*  Kernel New *Stable* Build!  
 *Started on:* ${KBUILD_BUILD_HOST}  
 *At branch:* ${BRANCH}  
 *commit:* $(git log --pretty=format:'"%h : %s"' -1)  
 *Started on:* $(date)  "
+else
+tg_sendinfo "*Dark Ages*  Kernel New *Beta* Build!  
+*Started on:* ${KBUILD_BUILD_HOST}  
+*At branch:* ${BRANCH}  
+*commit:* $(git log --pretty=format:'"%h : %s"' -1)  
+*Started on:* $(date)  "
+fi
 
 make  O=out $CONFIG $THREAD
 make  O=out $THREAD
@@ -88,12 +100,18 @@ fi
 
 cd $ZIP_DIR
 make clean &>/dev/null
+cp $KERN_IMG $ZIP_DIR/zImage
 NAME=Dark-Ages	
 DATE=$(date "+%d%m%Y-%I%M")	
 CODE=El-Octavo
-ZIP=${NAME}-${CODE}-${DATE}.zip
-cp $KERN_IMG $ZIP_DIR/zImage
-make normal &>/dev/null
+VERSION=4.9
+if [ $BRANCH == "darky" ]; then
+ZIP=$(NAME)-$(CODE)-$(VERSION)-STABLE-$(DATE).zip
+make stable &>/dev/null
+else
+ZIP=$(NAME)-$(CODE)-$(VERSION)-BETA-$(DATE).zip
+make beta &>/dev/null
+fi
 echo "Flashable zip generated under $ZIP_DIR."
 push
 cd ..
