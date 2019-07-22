@@ -79,7 +79,7 @@ tg_sendinfo "*Dark Ages*  Kernel New *Stable* Build!
 *At branch:* ${BRANCH}  
 *commit:* $(git log --pretty=format:'"%h : %s"' -1)  
 *Started on:* $(date)  "
-else if [ $BRANCH == "darky-3.18" ]; then
+elif [ $BRANCH == "darky-3.18" ]; then
 tg_sendinfo "*Dark Ages* 3.18 Kernel New Build!  
 *Started on:* ${KBUILD_BUILD_HOST}  
 *At branch:* ${BRANCH}  
@@ -114,7 +114,7 @@ VERSION=4.9
 if [ $BRANCH == "darky" ]; then
 ZIP=${NAME}-${CODE}-${VERSION}-STABLE-${DATE}.zip
 make stable &>/dev/null
-else if [ $BRANCH == "darky-3.18" ]; then
+elif [ $BRANCH == "darky-3.18" ]; then
 git checkout 3.18
 CODE=Septimo
 VERSION=3.18
