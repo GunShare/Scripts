@@ -23,7 +23,7 @@ function push() {
 
 function tg_sendinfo() {
 	curl -s "https://api.telegram.org/bot$BOT_API_KEY/sendMessage" \
-		-d "parse_mode=markdown" \
+		-d "parse_mode=html" \
 		-d text="${1}" \
 		-d chat_id="@da_ci" \
 		-d "disable_web_page_preview=true"
@@ -74,23 +74,24 @@ BUILD_START=$(date +"%s")
 tg_sendstick
 
 if [ $BRANCH == "darky" ]; then
-tg_sendinfo "*Dark Ages*  Kernel New *Stable* Build!  
-*Started on:* ${KBUILD_BUILD_HOST}  
-*At branch:* ${BRANCH}  
-*commit:* $(git log --pretty=format:'"%h : %s"' -1)  
-*Started on:* $(date)  "
+tg_sendinfo "<b>Dark Ages Kernel</b> new build!
+	Started on: <b>$KBUILD_BUILD_HOST</b>
+	Branch: <b>$BRANCH</b>
+	commit <b>$(git log --pretty=format:'"%h : %s"' -1)</b>
+	Date: <b>$(date)</b>"
+
 elif [ $BRANCH == "darky-3.18" ]; then
-tg_sendinfo "*Dark Ages* 3.18 Kernel New Build!  
-*Started on:* ${KBUILD_BUILD_HOST}  
-*At branch:* ${BRANCH}  
-*commit:* $(git log --pretty=format:'"%h : %s"' -1)  
-*Started on:* $(date)  "
+tg_sendinfo "<b>Dark Ages Kernel 3.18 </b> new build!
+	Started on: <b>$KBUILD_BUILD_HOST</b>
+	Branch: <b>$BRANCH</b>
+	commit <b>$(git log --pretty=format:'"%h : %s"' -1)</b>
+	Date: <b>$(date)</b>"
 else
-tg_sendinfo "*Dark Ages*  Kernel New *Beta* Build!  
-*Started on:* ${KBUILD_BUILD_HOST}  
-*At branch:* ${BRANCH}  
-*commit:* $(git log --pretty=format:'"%h : %s"' -1)  
-*Started on:* $(date)  "
+tg_sendinfo "<b>Dark Ages Kernel</b> new <b>Beta</b> build!
+	Started on: <b>$KBUILD_BUILD_HOST</b>
+	Branch: <b>$BRANCH</b>
+	commit <b>$(git log --pretty=format:'"%h : %s"' -1)</b>
+	Date: <b>$(date)</b>"
 fi
 
 make  O=out $CONFIG $THREAD
