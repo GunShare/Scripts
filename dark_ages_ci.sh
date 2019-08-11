@@ -109,7 +109,7 @@ make clean &>/dev/null
 cp $KERN_IMG $ZIP_DIR/zImage
 NAME=Dark-Ages	
 DATE=$(date "+%d%m%Y-%I%M")	
-CODE=El-Octavo
+CODE=El-Noveno
 VERSION=4.9
 if [ $BRANCH == "darky" ]; then
 ZIP=${NAME}-${CODE}-${VERSION}-STABLE-${DATE}.zip
