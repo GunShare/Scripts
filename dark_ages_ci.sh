@@ -53,15 +53,18 @@ export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_BUILD_USER="Blacksuan19"
 export KBUILD_BUILD_HOST="Dark-Castle"
-export CROSS_COMPILE="$PWD/toolchains/aarch64/bin/aarch64-linux-android-"
+export CROSS_COMPILE="$PWD/toolchains/aarch64/bin/aarch64-elf-"
 export CROSS_COMPILE_ARM32="$PWD/toolchains/aarch32/bin/arm-eabi-"
+export CC=$PWD/toolchains/clang/bin/clang
+export KBUILD_COMPILER_STRING=$($CC --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
 
 # Install build package
 
 sudo apt install bc
 
-# Clone toolchain
-git clone https://github.com/GrowtopiaJaw/aarch64-linux-android-4.9.git -b google toolchains/aarch64
+# Clone toolchains
+git clone https://github.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-5657785.git toolchains/clang
+git clone https://github.com/kdrag0n/aarch64-elf-gcc toolchains/aarch64
 git clone https://github.com/arter97/arm-eabi-5.1.git toolchains/aarch32
 
 # Clone AnyKernel2
@@ -97,6 +100,7 @@ fi
 make  O=out $CONFIG $THREAD
 make  O=out $THREAD
 
+
 BUILD_END=$(date +"%s")
 DIFF=$(($BUILD_END - $BUILD_START))
 
@@ -108,8 +112,8 @@ fi
 cd $ZIP_DIR
 make clean &>/dev/null
 cp $KERN_IMG $ZIP_DIR/zImage
-NAME=Dark-Ages	
-DATE=$(date "+%d%m%Y-%I%M")	
+NAME=Dark-Ages
+DATE=$(date "+%d%m%Y-%I%M")
 CODE=Décimo
 VERSION=4.9
 if [ $BRANCH == "darky" ]; then
